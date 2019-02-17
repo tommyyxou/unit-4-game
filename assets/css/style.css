@@ -1,0 +1,15 @@
+.character {
+    float: left;
+    width: 200px;
+    height:200px;
+    border: solid 1px blue;
+}
+
+.first {
+    clear: both;
+}
+
+.charImg {
+    width: 150px;
+    height: 150px;
+}
