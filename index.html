@@ -4,40 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Gundam RPG Game</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="./assets/javascript/game.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     
 </head>
-<body onload="loadChar (), charSelection ()">
-    <div>Star Wars RPG!</div>
+<body onload="start ()">
+    <div>Mobile Suit Gundam RPG!</div>
     <br>
 
-    <div id="yourCharacter">
-        <div class="character player" id="character1"></div>
-        <div class="character player" id="character2"></div>
-        <div class="character player" id="character3"></div>
-        <div class="character player" id="character4"></div>
-    </div>
+    <div id="yourCharacter"></div>
 
     <div class="first">Your Character</div>
     <br>
 
     <div id="yourEnermy">
-        <div class="character enermy" id="enermy1"></div>
-        <div class="character enermy" id="enermy2"></div>
-        <div class="character enermy" id="enermy3"></div>
+        <div class="character enemy" id="enemy1"></div>
+        <div class="character enemy" id="enemy2"></div>
+        <div class="character enemy" id="enemy3"></div>
     </div>
 
     <div class="first">Enemies Available To Attack</div>
     <br>
     <div>Fight Section</div>
-    <button>Attack</button>
+    <button onclick="attackDefender()">Attack</button>
     <br>
-    <div id="defender" class="character"></div>
+    <div class="character defender" id="defenderDiv">
+        <div id="defender"></div>
+    </div>
+    
     <div class="first">Defender</div>
+    <br>
+    <div id="playerAttMsg"></div>
+    <div id="defenderAttMsg"></div>
+    <div id="resetButton"></div>
 
+    
 </body>
 </html>
