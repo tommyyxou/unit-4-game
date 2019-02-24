@@ -1,43 +1,43 @@
 var characters = [
     {
-        name: "Zaku-II",
-        attack: 10,
+        name: "Ken",
+        attack: 40,
         hitPoint: 100,
         defenderAttack: 5,
         charSelect: false,
         defender: false,
         defeated: false,
-        img: "./assets/images/1.png"
+        img: "./assets/images/1.gif",    
     },
     {
-        name: "RX-78",
+        name: "Dhalsim",
         attack: 8,
         hitPoint: 120,
         defenderAttack: 10,
         charSelect: false,
         defender: false,
         defeated: false,
-        img: "./assets/images/2.png"
+        img: "./assets/images/2.gif",
     },
     {
-        name: "Unicorn",
+        name: "Akuma",
         attack: 12,
-        hitPoint: 140,
+        hitPoint: 125,
         defenderAttack: 20,
         charSelect: false,
         defender: false,
         defeated: false,
-        img: "./assets/images/3.png"
+        img: "./assets/images/3.gif",
     },
     {
-        name: "Sinanju",
+        name: "Ryu",
         attack: 5,
-        hitPoint: 180,
+        hitPoint: 150,
         defenderAttack: 25,
         charSelect: false,
         defender: false,
         defeated: false,
-        img: "./assets/images/4.png"
+        img: "./assets/images/4.gif",
     },
 ];
 
@@ -49,17 +49,19 @@ let charName = "";
 let charAttack = "";
 let charHitPoint = "";
 let charDefAtt = "";
-let playerHP = 1;
-let playerAtt = 1;
-let defenderHP = 1;
-let defenderAtt = 1;
+let playerHP = null;
+let playerAtt = null;
+let defenderHP = null;
+let defenderAtt = null;
 let attackInitialized = false;
-let numberOfDefeated = 0;
+let numberOfDefeated = null;
 let gameWon = false;
 let gameLose = false;
+let iOfPlayer = null;
+let iOfDefender = null;
 
 function loadCharInfo (array) {
-    charName = $("<div>")
+    charName = $("<p>")
     charName.attr ('class', "charName name");
     charName.html (array.name);
 
@@ -67,7 +69,7 @@ function loadCharInfo (array) {
     charImg.attr ('class', "charImg")
     charImg.attr ('src', array.img)
                 
-    charAttack = $("<div>")
+    charAttack = $("<p>")
     charAttack.attr ('class', "charAttack");
     charAttack.html (array.attack);
 
@@ -84,6 +86,12 @@ function appendStats (display) {
     display.append(charName);
     display.append(charImg);
     display.append(charHitPoint);
+}
+
+function appendStatsImage (display) {
+    // display.append(charName);
+    display.append(charImg);
+    // display.append(charHitPoint);
 }
 
 function start () {
@@ -115,6 +123,7 @@ function loadEnermy () {
         loadCharInfo (y);
         var display = $(string);
         appendStats (display);  
+        
     }  
 }
 
@@ -132,6 +141,7 @@ function handleClickPlayer(e) {
         for (x = 0; x < characters.length; x++) {
             if (charNameSelected === characters[x].name) {
                 characters [x].charSelect = true;
+                iOfPlayer = x;
             } else {
                 let string = "#character" + (x + 1);
                 $(string).remove();
@@ -147,7 +157,8 @@ function handleClickEnermy(e) {
     if (gameLose === false && gameWon === false) {
         for (x = 0; x < characters.length; x++) {
             if (characters[x].charSelect === false && charNameSelected === characters[x].name) {
-                    characters[x].defender = true; 
+                characters[x].defender = true; 
+                iOfDefender = x;
             }        
         } 
         for (x = 0; x < enemy.length; x++) {
@@ -179,8 +190,10 @@ function loadDefender () {
                 let y = defending[0];
                 loadCharInfo (y);
                 var display = $("#defender");
-                appendStats (display);
+                appendStatsImage (display);
                 console.log (defending);
+                $("#defenderHealth").val(100);
+                $("#defenderName").html(defending[0].name)
             }
         }
     } 
@@ -196,6 +209,7 @@ function initializePlayerStats () {
                 console.log ("player HP:", playerHP);
                 playerAtt = characters[x].attack; 
                 console.log ("player Att:", playerAtt);
+                $("#playerName").html(characters[x].name);
             }
             if (characters[x].defender === true) {
                 defenderHP = characters[x].hitPoint;
@@ -226,15 +240,14 @@ function attackDefender () {
             $("#playerAttMsg").text("choose an enemy");
             $("#defenderAttMsg").text("");
         } else {
-            playerHP = playerHP - defenderAtt;
             defenderHP = defenderHP - playerAtt;
-            $(".charHitPoint:first").html(playerHP);
-            $(".charHitPoint:last").html(defenderHP);
-            $("#playerAttMsg").html("You attacked " + defending[0].name + " for " + playerAtt + " damage.") 
-            $("#defenderAttMsg").html(defending[0].name + " attacked you for " + defenderAtt + " damage.") 
-            playerAtt = playerAtt + 8;
+            let DefHPpercent = (defenderHP / defending[0].hitPoint) * 100 ;
+            $("#defenderHealth").val(DefHPpercent);
+            var defHP = $("#defender .charHitPoint").html();
+            console.log (defHP);
+            $("#defender .charHitPoint").html(defenderHP);
+            $("#defenderAttMsg").html(defending[0].name + " attacked you for " + defenderAtt + " damage."); 
             defenderHPCheck ();
-            playerHPCheck ();
         }
     }
 }
@@ -255,11 +268,20 @@ function defenderHPCheck () {
         $("#defender").remove();
         $("#defenderDiv").append("<div id='defender'></div>")
         winningCondition ();
+    } else {
+        playerHP = playerHP - defenderAtt;
+
+        let plaHPpercent = (playerHP / characters[iOfPlayer].hitPoint) * 100 ;
+        $("#playerHealth").val(plaHPpercent);
+        $(".charHitPoint:first").html(playerHP);
+        $("#playerAttMsg").html("You attacked " + defending[0].name + " for " + playerAtt + " damage.");
+        playerAtt = playerAtt + 8;
+        playerHPCheck ();
     }
 }
 
 function playerHPCheck () {
-    if (playerHP <= 0) {
+    if (playerHP <= 0 && gameWon === false) {
         $("#playerAttMsg").html("You Lose!!");
         $("#defenderAttMsg").html("");
         $("#resetButton").html("<button onClick='window.location.reload()'>Reset Game</button>") 

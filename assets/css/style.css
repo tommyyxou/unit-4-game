@@ -1,8 +1,39 @@
+body {
+    
+    background-color: black;
+}
+
+.title {
+    display: block;
+    height: 200px;
+    width: auto;
+    margin: auto; 
+}
+
+img{
+    height: 200px;
+}
+.container {
+    width: 1280px;
+    height: 592px;
+    background-image: url("../images/background.gif");
+    margin: auto;
+
+}
+.sidebar {
+    max-width: 300px;
+    float: left;
+}
+
+p{
+    color: red;
+    font-size: 15px;
+}
 .character {
+    margin: auto;
     float: left;
     width: 200px;
-    height:200px;
-    border: solid 1px blue;
+    height:300px;
     display: table;
     text-align: center;
 }
@@ -13,20 +44,76 @@
 
 .charImg {
     width: auto;
-    height: 150px;
+    height: 250px;
 }
 .name {
     font-size: 20px;
 }
 
 .player {
-    background-color: green;
+    position: relative;
+    top: 100px;
+    left: 150px;
+    margin: 25px;
+    /* background-color: blue; */
+    z-index: 5;
 }
 
 .enemy {
-    background-color: tomato;
+    position: relative;
+    left: 650px;
+    top : -625px;
+    transform: scaleX(-1);
+    /* background-color: tomato; */
+    z-index: 3;
 }
 
 .defender {
-    background-color: slategrey;
+    position: relative;
+    left: 400px;
+    top: -210px;
+    transform: scaleX(-1);
+    /* background-color: slategrey; */
+
+}
+progress {
+    width: 500px;
+    height: 30px;
+}
+#playerHealth {
+    position: relative;
+    top:20px;
+    left: 70px;
+    transform: scaleX(-1);
+}
+#defenderHealth {
+    position: relative;
+    top:20px;
+    left: 210px;
+}
+
+#playerName {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    color:black;
+    position: relative;
+    top:20px;
+    left: 70px;
+}
+#defenderName {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    color:black;
+    position: relative;
+    top: -10px;
+    left: 1060px;
+}
+
+#yourEnemyDiv {
+    height: 300px;
+}
+
+.attackButton {
+    width: 250px;
+    height: auto;
 }

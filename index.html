@@ -4,43 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gundam RPG Game</title>
+    <title>Street Fighters</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="./assets/javascript/game.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
     
 </head>
 <body onload="start ()">
-    <div>Mobile Suit Gundam RPG!</div>
-    <br>
-
-    <div id="yourCharacter"></div>
-
-    <div class="first">Your Character</div>
-    <br>
-
-    <div id="yourEnermy">
-        <div class="character enemy" id="enemy1"></div>
-        <div class="character enemy" id="enemy2"></div>
-        <div class="character enemy" id="enemy3"></div>
+    <div id="title">
+        <img class="title" src="./assets/images/title.png" alt="title">
     </div>
 
-    <div class="first">Enemies Available To Attack</div>
-    <br>
-    <div>Fight Section</div>
-    <button onclick="attackDefender()">Attack</button>
-    <br>
-    <div class="character defender" id="defenderDiv">
-        <div id="defender"></div>
+    <div class="sidebar">
+            <div id="attackButton" onclick="attackDefender()">
+                <img class="attackButton" src="./assets/images/fight.png" alt="fight!">
+            </div>
+            <p id="playerAttMsg"></p>
+            <p id="defenderAttMsg"></p>
+        <div id="resetButton"></div>
+    </div>    
+    <div class="container">
+        
+        <progress id="playerHealth" value="100" max="100"></progress>
+        <progress id="defenderHealth" value="100" max="100"></progress>
+        <div id="playerName"> player name</div>
+        <div id="defenderName"> defender name</div>
+
+        <div id="yourCharacter"></div><br>
+        
+        <div class="character defender first" id="defenderDiv">
+            <div id="defender"></div>
+        </div>
+
+        <div id="yourEnemyDiv">
+            <div id="yourEnermy" class="first">
+                <div class="character enemy" id="enemy1"></div>
+                <div class="character enemy" id="enemy2"></div>
+                <div class="character enemy" id="enemy3"></div>
+            </div><br>
+        </div>
     </div>
     
-    <div class="first">Defender</div>
-    <br>
-    <div id="playerAttMsg"></div>
-    <div id="defenderAttMsg"></div>
-    <div id="resetButton"></div>
-
     
 </body>
 </html>
